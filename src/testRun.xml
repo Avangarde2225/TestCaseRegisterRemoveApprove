@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <parameter name="username" value="nigeria_tenant_admin"></parameter>
+    <parameter name="password" value="TnvLOl54WxR75vylop2A"></parameter>
+    <parameter name="path" value="C:\Users\suler\Desktop\Selenium\chromedriver\chromedriver.exe"></parameter>
+    <test verbose="2" preserve-order="true" name="D:/Project/BasqarTestSuite/src/test/resources">
+        <classes>
+            <class name="registerToEntranceExams"></class>
+
+        </classes>
+    </test>
+</suite>
