@@ -2,6 +2,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -34,43 +37,63 @@ public class registerToEntranceExams {
     }
 
     @Test
-    public void examRegistration(){
-        driver.findElement(By.xpath("//div//fuse-nav-vertical-collapsable//span[@class='nav-link-title ng-tns-c104-14 ng-star-inserted']")).click(); //Click on entrace exams
+    public void examRegistration() throws InterruptedException {
+        driver.findElement(By.xpath("//div//fuse-nav-vertical-collapsable//span[@class='nav-link-title ng-tns-c104-14 ng-star-inserted']")).click(); //Click on entrance exams
         driver.findElement(By.xpath("//fuse-nav-vertical-group//div//fuse-nav-vertical-collapsable//span[text()='Registration Approve']")).click(); // click on registration approve
         //click on plus button
         driver.findElement(By.cssSelector("ms-add-button[tooltip='GENERAL.BUTTON.ADD']")).click();
 
         //selecting from the pre-approval list
-        driver.findElement(By.xpath("//div//mat-select//div[@class='mat-select-value ng-tns-c211-62']")).click();
+        driver.findElement(By.xpath("//span[text()='Grade Level of Registration']")).click();
         //selecting 9th grade
-        driver.findElement(By.xpath("//div//div[@class='ng-tns-c211-62 ng-trigger ng-trigger-transformPanel mat-select-panel mat-primary']//child::mat-option[5]")).click();
+        driver.findElement(By.xpath("//span[text()=' 9th Grade ']")).click();
         //click on choose exam
-        driver.findElement(By.xpath("//div[@class='mat-select-value ng-tns-c211-64']")).click();
+        driver.findElement(By.xpath("//span[text()='Choose Exam']")).click();
         //selecting exam
-        driver.findElement(By.xpath("//mat-option[@class='mat-option mat-focus-indicator mat-active ng-tns-c211-64 ng-star-inserted']//child::span")).click();
+        driver.findElement(By.xpath("//mat-option//span[text()=' 9th Grade Entrance Exam ']")).click();
 
         //selecting student information tab
         driver.findElement(By.cssSelector("div.mat-tab-labels>div:nth-child(2)")).click();
+
         //enter lastname
-        driver.findElement(By.cssSelector("ms-text-field[placeholder='GENERAL.FIELD.LAST_NAME']")).sendKeys("Abuzer");
+
+//        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector("ms-text-field[placeholder='GENERAL.FIELD.LAST_NAME']"))).click();
+
+        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.xpath("//ms-text-field[@formcontrolname='lastName']/input"))).click();
+
+        driver.findElement(By.xpath("//ms-text-field[@formcontrolname='lastName']/input")).sendKeys("Doe");
+
         //enter firstname
-        driver.findElement(By.cssSelector("ms-text-field[formcontrolname='firstName']")).sendKeys("Kadayif");
+        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.xpath("//ms-text-field[@formcontrolname='firstName']/input"))).click();
+
+        driver.findElement(By.xpath("//ms-text-field[@formcontrolname='firstName']/input")).sendKeys("John");
+
         //DOB
-        driver.findElement(By.cssSelector("input[placeholder='Date of Birth']")).sendKeys("08/02/2005");
+        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Date of Birth']"))).click();
+        driver.findElement(By.xpath("//input[@placeholder='Date of Birth']")).sendKeys("08/02/2005");
+        //driver.findElement(By.xpath("//button[@aria-label='Open calendar']/span")).click();
+
         //personal ID
-        driver.findElement(By.cssSelector("ms-text-field[formcontrolname='personalID']")).sendKeys("1000000004");
+        //new WebDriverWait(driver,10).until((ExpectedConditions.elementToBeClickable(By.xpath("//ms-text-field[@placeholder='GENERAL.FIELD.PERSONAL_ID']"))));
+       //driver.findElement(By.xpath("//ms-text-field[@placeholder='GENERAL.FIELD.PERSONAL_ID']")).click();
+        WebElement element = driver.findElement(By.xpath("//ms-text-field[@placeholder='GENERAL.FIELD.PERSONAL_ID']"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).click().build().perform();
+
+        driver.findElement(By.xpath("//ms-text-field[@placeholder='GENERAL.FIELD.PERSONAL_ID']//input")).sendKeys("1000000004");
+
         //gender
         driver.findElement(By.xpath("//span[text()='Gender']")).click();
         //select gender
-        driver.findElement(By.xpath("//span[text()='Male']")).click();
+        driver.findElement(By.xpath("//span[text()=' Male ']")).click();
         //citizenship
         driver.findElement(By.xpath("//span[text()='Citizenship']")).click();
         //select citizenship
-        driver.findElement(By.xpath("//span[text()='Ukraine']")).click();
+        driver.findElement(By.xpath("//span[text()=' Ukraine ']")).click();
         //nationality
         driver.findElement(By.xpath("//span[text()='Nationality']")).click();
         //select nationality
-        driver.findElement(By.xpath("//span[text()='Ukrainian']")).click();
+        driver.findElement(By.xpath("//span[text()=' Ukrainian ']")).click();
 
         //click on relative info
         driver.findElement(By.cssSelector("div.mat-tab-labels>div:nth-child(3)")).click();
