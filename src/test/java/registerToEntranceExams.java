@@ -96,7 +96,21 @@ public class registerToEntranceExams {
         driver.findElement(By.xpath("//span[text()=' Ukrainian ']")).click();
 
         //click on relative info
-        driver.findElement(By.cssSelector("div.mat-tab-labels>div:nth-child(3)")).click();
+        WebDriverWait wait = new WebDriverWait(driver,20);
+
+       driver.findElement(By.cssSelector("div.mat-tab-labels>div:nth-child(3)")).click();
+        //click on representative
+        //driver.findElement(By.xpath("//span//label[@id='mat-form-field-label-57']//span")).click();
+        //select representative
+        //driver.findElement(By.xpath("//mat-option[@id='mat-option-73']//span")).click();
+
+        driver.findElement(By.xpath("//span//label[@id='mat-form-field-label-57']//span[1]")).click();
+        wait.until( ExpectedConditions.visibilityOfElementLocated( By.cssSelector(".cdk-overlay-pane") ) );
+
+        driver.findElement(By.xpath("//mat-option[@id='mat-option-73']//span")).click();
+
+        wait.until( ExpectedConditions.invisibilityOfElementLocated( By.cssSelector(".cdk-overlay-pane") ) );
+
     }
 
 
